@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "header": { "type": "zw-header", "settings": {} }
+  },
+  "order": ["header"]
+}

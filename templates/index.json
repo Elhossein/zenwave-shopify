@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "header": { "type": "zw-header", "settings": {} },
+    "home": { "type": "zw-homepage", "settings": { "product_handle": "massage-mat" } }
+  },
+  "order": ["header", "home"]
+}

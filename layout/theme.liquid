@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page_title }} — {{ shop.name }}</title>
+  <meta name="description" content="{{ page_description | escape }}" />
+  {{ content_for_header }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#222;background:#fff}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+  </style>
+</head>
+<body>
+  <a href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+  {{ content_for_layout }}
+
+  <!-- Cart Drawer -->
+  <div id="zw-cart-drawer" style="display:none;position:fixed;inset:0;z-index:9999">
+    <div id="zw-cart-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,0.5)"></div>
+    <div style="position:absolute;right:0;top:0;bottom:0;width:min(420px,100%);background:#fff;display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,0.15)">
+      <div style="padding:20px 24px;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between">
+        <strong style="font-size:1.1rem;font-family:'Playfair Display',serif">Your Cart</strong>
+        <button id="zw-cart-close" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#555">✕</button>
+      </div>
+      <div id="zw-cart-body" style="flex:1;overflow-y:auto;padding:24px"></div>
+      <div style="padding:20px 24px;border-top:1px solid #eee">
+        <div style="display:flex;justify-content:space-between;margin-bottom:12px">
+          <span style="font-size:0.9rem;color:#555">Subtotal</span>
+          <span id="zw-cart-total" style="font-size:1.1rem;font-weight:900;color:#111">$0.00</span>
+        </div>
+        <p style="font-size:0.75rem;color:#aaa;text-align:center;margin-bottom:12px">Taxes and shipping calculated at checkout</p>
+        <a href="/checkout" style="display:block;width:100%;padding:16px;background:linear-gradient(135deg,#5b21b6,#7c3aed);color:#fff;text-align:center;font-weight:800;font-size:1rem;border-radius:10px">Proceed to Checkout →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var drawer=document.getElementById('zw-cart-drawer');
+    var overlay=document.getElementById('zw-cart-overlay');
+    var closeBtn=document.getElementById('zw-cart-close');
+    function fmt(c){ return '$'+(c/100).toFixed(2); }
+    function openCart(){
+      fetch('/cart.js').then(function(r){return r.json();}).then(function(cart){
+        var body=document.getElementById('zw-cart-body');
+        document.getElementById('zw-cart-total').textContent = fmt(cart.total_price);
+        if(cart.item_count===0){body.innerHTML='<p style="color:#888;text-align:center;margin-top:40px">Your cart is empty.</p>';drawer.style.display='block';return;}
+        body.innerHTML=cart.items.map(function(item){
+          var img=item.featured_image&&item.featured_image.url?item.featured_image.url:(item.image||'');
+          return '<div style="display:flex;gap:16px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #eee">'
+            +(img?'<img src="'+img+'" style="width:80px;height:80px;object-fit:cover;border-radius:10px;flex-shrink:0"/>':'')
+            +'<div style="flex:1;min-width:0">'
+            +'<p style="font-weight:700;font-size:0.9rem;line-height:1.3">'+item.product_title+'</p>'
+            +(item.variant_title&&item.variant_title!='Default Title'?'<p style="color:#aaa;font-size:0.78rem;margin-top:2px">'+item.variant_title+'</p>':'')
+            +'<div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">'
+            +'<p style="color:#7c3aed;font-weight:800">'+fmt(item.final_price)+'</p>'
+            +'<div style="display:flex;align-items:center;gap:8px;border:1px solid #eee;border-radius:8px;padding:4px 10px">'
+            +'<button onclick="zwQty(\''+item.key+'\','+(item.quantity-1)+')" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:#555">−</button>'
+            +'<span style="font-size:0.88rem;font-weight:700">'+item.quantity+'</span>'
+            +'<button onclick="zwQty(\''+item.key+'\','+(item.quantity+1)+')" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:#555">+</button>'
+            +'</div></div></div></div>';
+        }).join('');
+        drawer.style.display='block';
+      });
+    }
+    window.zwQty=function(key,qty){
+      fetch('/cart/change.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:key,quantity:qty<0?0:qty})})
+        .then(function(r){return r.json();}).then(function(c){
+          var b=document.querySelector('.zw-cart-badge');if(b)b.textContent=c.item_count;
+          openCart();
+        });
+    };
+    if(overlay)overlay.addEventListener('click',function(){drawer.style.display='none';});
+    if(closeBtn)closeBtn.addEventListener('click',function(){drawer.style.display='none';});
+    document.addEventListener('click',function(e){
+      if(e.target.classList.contains('zw-open-cart')||e.target.closest('.zw-open-cart')){e.preventDefault();openCart();}
+    });
+  })();
+  </script>
+</body>
+</html>

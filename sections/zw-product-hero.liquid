@@ -1,0 +1,569 @@
+{%- assign zp = product -%}
+{%- assign zfv = zp.selected_or_first_available_variant -%}
+
+<!-- ══ PRODUCT HERO ══ -->
+<section class="zw-hero">
+  <div class="zw-hero-wrap">
+
+    <!-- LEFT: Sticky Gallery -->
+    <div class="zw-gallery" id="zw-gallery">
+      <div class="zw-gallery-main">
+        {%- if zp.images.size > 0 -%}
+          <img id="zw-main-img" src="{{ zp.featured_image | image_url: width: 1000 }}" alt="{{ zp.title }}" />
+        {%- else -%}
+          <img id="zw-main-img" src="{{ 'mm-1.jpg' | asset_url }}" alt="{{ zp.title }}" />
+        {%- endif -%}
+        <span class="zw-badge">#1 Best Seller</span>
+      </div>
+      <div class="zw-thumbs">
+        {%- if zp.images.size > 0 -%}
+          {%- for img in zp.images -%}
+            <button class="zw-thumb{% if forloop.first %} active{% endif %}" data-src="{{ img | image_url: width: 1000 }}">
+              <img src="{{ img | image_url: width: 120 }}" alt="{{ zp.title }}" loading="lazy" />
+            </button>
+          {%- endfor -%}
+        {%- else -%}
+          <button class="zw-thumb active" data-src="{{ 'mm-1.jpg' | asset_url }}">
+            <img src="{{ 'mm-1.jpg' | asset_url }}" alt="{{ zp.title }}" loading="lazy" />
+          </button>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- RIGHT: Product Info -->
+    <div class="zw-info">
+      <div class="zw-rating-row">
+        <span class="zw-stars">★★★★★</span>
+        <span class="zw-rating-num">4.9 / 5</span>
+        <span class="zw-sep">·</span>
+        <span>Loved by <strong>30,000+</strong> customers</span>
+      </div>
+
+      <h1 class="zw-title">{{ zp.title }}</h1>
+      <p class="zw-subtitle">Professional full-body shiatsu relief — <strong>neck, cervical, shoulders, back, waist, legs</strong> all in one mat. Zero effort. Total relaxation.</p>
+
+      <div class="zw-price-block">
+        <span class="zw-price" id="zw-price">{{ zfv.price | money }}</span>
+        {%- if zfv.compare_at_price > zfv.price -%}
+          <s class="zw-was" id="zw-was">{{ zfv.compare_at_price | money }}</s>
+          {%- assign spct = zfv.compare_at_price | minus: zfv.price | times: 100 | divided_by: zfv.compare_at_price -%}
+          <span class="zw-save-pill">SAVE {{ spct }}%</span>
+        {%- endif -%}
+      </div>
+      <p class="zw-pay-line">or 4 interest-free payments of <strong>{{ zfv.price | divided_by: 4 | money }}</strong> with <strong>Shop Pay</strong></p>
+
+      <script id="zw-variant-data" type="application/json">
+        [{%- for v in zp.variants -%}{"id":{{ v.id }},"price":{{ v.price }},"compare_at_price":{{ v.compare_at_price | default: 0 }},"available":{{ v.available }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+      </script>
+
+      <ul class="zw-bullets">
+        <li><svg viewBox="0 0 20 20" fill="#7c3aed" width="18" height="18"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><span>69" full-body coverage — neck to feet in one mat</span></li>
+        <li><svg viewBox="0 0 20 20" fill="#7c3aed" width="18" height="18"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><span>Shiatsu kneading + vibration + optional heat therapy</span></li>
+        <li><svg viewBox="0 0 20 20" fill="#7c3aed" width="18" height="18"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><span>Multiple intensity levels — adjustable for any sensitivity</span></li>
+        <li><svg viewBox="0 0 20 20" fill="#7c3aed" width="18" height="18"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><span>Foldable &amp; portable — use at home, office, or travel</span></li>
+        <li><svg viewBox="0 0 20 20" fill="#7c3aed" width="18" height="18"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><span>Auto shut-off safety timer — worry-free sessions</span></li>
+      </ul>
+
+      <button class="zw-cta" id="zw-cta">
+        Add to Cart — <span id="zw-cta-price">{{ zfv.price | money }}</span>
+      </button>
+
+      <div class="zw-stock-wrap">
+        <div class="zw-stock-bar"><div class="zw-stock-fill" style="width:82%"></div></div>
+        <p class="zw-stock-text">⚡ <strong>82% SOLD</strong> — Only 9 left at this price</p>
+      </div>
+
+      <div class="zw-guarantee">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div>
+          <strong>30-Day Money-Back Guarantee</strong>
+          <span>Feel the difference or get a full refund. 100% risk-free.</span>
+        </div>
+      </div>
+
+      <div class="zw-trust">
+        <div class="zw-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><span>Free Shipping</span></div>
+        <div class="zw-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>Secure Checkout</span></div>
+        <div class="zw-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>1-Year Warranty</span></div>
+      </div>
+
+      <div class="zw-accordions">
+        <details class="zw-acc"><summary class="zw-acc-q">What's in the Box <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg></summary><p class="zw-acc-a">1× ZenWave Full-Body Massage Mat (69" × 24") · Remote control · Power adapter · Storage bag · Quick-start guide.</p></details>
+        <details class="zw-acc"><summary class="zw-acc-q">How to Use <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg></summary><p class="zw-acc-a">Unroll on any flat surface. Lie down, plug in, and select your zone and intensity on the remote. Start with 15–20 minute sessions. Auto shut-off activates after your set time.</p></details>
+        <details class="zw-acc"><summary class="zw-acc-q">Shipping &amp; Returns <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg></summary><p class="zw-acc-a">Free US shipping on all orders. Ships in 1–2 business days, arrives in 3–7 days. 30-day hassle-free returns — we cover return shipping.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VIDEOS ══ -->
+{%- assign zw_vid_count = 0 -%}
+{%- for media in zp.media -%}
+  {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+    {%- assign zw_vid_count = zw_vid_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if zw_vid_count > 0 -%}
+<section class="zw-vid-section">
+  <div class="zw-inner">
+    <p class="zw-eyebrow">SEE IT IN ACTION</p>
+    <h2 class="zw-sec-h2" style="margin-bottom:40px">Watch How It Works</h2>
+    {%- assign zw_vn = 0 -%}
+    {%- for media in zp.media -%}
+      {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+        {%- if zw_vn == 0 -%}
+          <div class="zw-vid-featured">
+            {%- if media.media_type == 'video' -%}
+              <video controls autoplay muted loop playsinline{% if media.preview_image %} poster="{{ media.preview_image | image_url: width: 1200 }}"{% endif %}>
+                {%- for src in media.sources -%}<source src="{{ src.url }}" type="{{ src.mime_type }}">{%- endfor -%}
+              </video>
+            {%- elsif media.host == 'youtube' -%}
+              <iframe src="https://www.youtube.com/embed/{{ media.external_id }}?autoplay=1&mute=1&rel=0" frameborder="0" allowfullscreen allow="autoplay;encrypted-media"></iframe>
+            {%- endif -%}
+          </div>
+          {%- if zw_vid_count > 1 -%}<div class="zw-vid-row">{%- endif -%}
+        {%- else -%}
+          <div class="zw-vid-card"
+            {%- if media.media_type == 'video' -%}{%- for src in media.sources limit:1 %} data-src="{{ src.url }}" data-mime="{{ src.mime_type }}"{% endfor %}{% if media.preview_image %} data-poster="{{ media.preview_image | image_url: width:800 }}"{% endif %}
+            {%- elsif media.host == 'youtube' -%} data-yt="{{ media.external_id }}"{%- endif -%}>
+            <div class="zw-vid-thumb">
+              {%- if media.preview_image -%}<img src="{{ media.preview_image | image_url: width:400 }}" alt="Video {{ zw_vn | plus:1 }}" loading="lazy">{%- else -%}<div style="width:100%;height:100%;background:#1a1a2e"></div>{%- endif -%}
+              <div class="zw-vid-play"><svg viewBox="0 0 24 24" width="52" height="52"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.6)"/><polygon points="10,8 18,12 10,16" fill="white"/></svg></div>
+            </div>
+            <p class="zw-vid-label">Video {{ zw_vn | plus:1 }}</p>
+          </div>
+        {%- endif -%}
+        {%- assign zw_vn = zw_vn | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if zw_vid_count > 1 -%}</div>{%- endif -%}
+  </div>
+  <div class="zw-vid-lb" id="zw-vid-lb" aria-hidden="true">
+    <button id="zw-vid-lb-close" class="zw-vid-lb-close">✕</button>
+    <div id="zw-vid-lb-body" class="zw-vid-lb-body"></div>
+  </div>
+  <script>
+  (function(){
+    var lb=document.getElementById('zw-vid-lb'),lbBody=document.getElementById('zw-vid-lb-body');
+    function closeLb(){lb.setAttribute('aria-hidden','true');lbBody.innerHTML='';document.body.style.overflow='';}
+    document.getElementById('zw-vid-lb-close').addEventListener('click',closeLb);
+    lb.addEventListener('click',function(e){if(e.target===lb)closeLb();});
+    document.querySelectorAll('.zw-vid-card').forEach(function(c){
+      c.addEventListener('click',function(){
+        lbBody.innerHTML='';
+        if(c.dataset.yt){lbBody.innerHTML='<iframe src="https://www.youtube.com/embed/'+c.dataset.yt+'?autoplay=1&rel=0" frameborder="0" allowfullscreen allow="autoplay;encrypted-media" style="width:100%;aspect-ratio:16/9;border-radius:16px;display:block"></iframe>';}
+        else if(c.dataset.src){var v=document.createElement('video');v.controls=true;v.autoplay=true;v.muted=true;v.setAttribute('playsinline','');if(c.dataset.poster)v.poster=c.dataset.poster;v.innerHTML='<source src="'+c.dataset.src+'" type="'+(c.dataset.mime||'video/mp4')+'">';lbBody.appendChild(v);}
+        lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+      });
+    });
+  })();
+  </script>
+</section>
+{%- endif -%}
+
+<!-- ══ TICKER ══ -->
+<div class="zw-ticker">
+  <div class="zw-ticker-track">
+    {%- for i in (1..8) -%}
+      <span>"Best investment for my back pain" — <strong>Amanda R.</strong></span><span class="zw-tsep">★★★★★</span>
+      <span>"I use it every single night" — <strong>David K.</strong></span><span class="zw-tsep">★★★★★</span>
+      <span>"Feels like a professional massage at home" — <strong>Priya M.</strong></span><span class="zw-tsep">★★★★★</span>
+    {%- endfor -%}
+  </div>
+</div>
+
+<!-- ══ VS COMPETITION ══ -->
+<section class="zw-vs">
+  <div class="zw-inner">
+    <p class="zw-eyebrow">THE ZENWAVE DIFFERENCE</p>
+    <h2 class="zw-vs-headline">You've tried other solutions.<br><em>Nothing covers your whole body. ZenWave does.</em></h2>
+    <div class="zw-vs-points">
+      <div class="zw-vs-point"><div class="zw-vs-num">1</div><div><strong>69" full-body coverage — neck to feet, simultaneously.</strong><span>Other massagers target one zone. ZenWave targets everything at once.</span></div></div>
+      <div class="zw-vs-point"><div class="zw-vs-num">2</div><div><strong>Professional shiatsu kneading, not just vibration.</strong><span>Cheap mats just buzz. ZenWave replicates real hands-on massage technique.</span></div></div>
+      <div class="zw-vs-point"><div class="zw-vs-num">3</div><div><strong>20-minute session = spa-quality relief at home.</strong><span>Save $80–$120 per session vs. a massage therapist.</span></div></div>
+    </div>
+    <div class="zw-table-wrap">
+      <table class="zw-table">
+        <thead>
+          <tr><th class="zw-th-feat"></th><th class="zw-th-us">ZenWave</th><th class="zw-th-them">Other Massagers</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Full-body coverage</td><td class="zw-td-us">✅ 69" neck to feet</td><td class="zw-td-them">❌ Single zone only</td></tr>
+          <tr><td>Massage type</td><td class="zw-td-us">✅ Shiatsu + vibration + heat</td><td class="zw-td-them">❌ Vibration only</td></tr>
+          <tr><td>Intensity settings</td><td class="zw-td-us">✅ Multiple levels</td><td class="zw-td-them">❌ One or two</td></tr>
+          <tr><td>Portable &amp; foldable</td><td class="zw-td-us">✅ Rolls up with bag</td><td class="zw-td-them">❌ Bulky, hard to store</td></tr>
+          <tr><td>Auto shut-off</td><td class="zw-td-us">✅ Safety timer</td><td class="zw-td-them">❌ Often missing</td></tr>
+          <tr><td>Guarantee</td><td class="zw-td-us">✅ 30-day refund</td><td class="zw-td-them">❌ No returns</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="zw-features">
+  <div class="zw-inner">
+    <p class="zw-eyebrow">ENGINEERED FOR RELIEF</p>
+    <h2 class="zw-sec-h2">Every Zone. Every Tension. Covered.</h2>
+    <div class="zw-feat-grid">
+      <div class="zw-feat-row">
+        <div class="zw-feat-img-wrap"><img src="{{ 'mm-1.jpg' | asset_url }}" alt="Full body coverage" class="zw-feat-img" loading="lazy" /></div>
+        <div class="zw-feat-text"><h3>🧘 Full-Body Coverage in 20 Minutes</h3><p>At 69 inches long, ZenWave is long enough to cover your entire body — from your cervical vertebra down to your legs — so one session addresses everything at once.</p></div>
+      </div>
+      <div class="zw-feat-row zw-feat-flip">
+        <div class="zw-feat-img-wrap"><img src="{{ 'mm-1.jpg' | asset_url }}" alt="Shiatsu nodes" class="zw-feat-img" loading="lazy" /></div>
+        <div class="zw-feat-text"><h3>💆 Professional Shiatsu Nodes</h3><p>The deep-kneading shiatsu nodes replicate real hands-on massage technique — not just surface vibration. Ideal for chronic back pain, knots, and post-workout recovery.</p></div>
+      </div>
+      <div class="zw-feat-row">
+        <div class="zw-feat-img-wrap"><img src="{{ 'mm-1.jpg' | asset_url }}" alt="Heat therapy" class="zw-feat-img" loading="lazy" /></div>
+        <div class="zw-feat-text"><h3>🔥 Optional Heat Therapy</h3><p>Targeted heat zones increase blood circulation, reduce stiffness, and amplify the massage effect — especially on the neck, lower back, and shoulders.</p></div>
+      </div>
+      <div class="zw-feat-row zw-feat-flip">
+        <div class="zw-feat-img-wrap"><img src="{{ 'mm-1.jpg' | asset_url }}" alt="Portable" class="zw-feat-img" loading="lazy" /></div>
+        <div class="zw-feat-text"><h3>🎒 Folds Up in Seconds</h3><p>Roll it up, drop it in the included bag, and take it anywhere — living room floor, office, hotel room. It's your personal massage therapist, wherever you go.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="zw-how">
+  <div class="zw-inner">
+    <p class="zw-eyebrow">3 STEPS</p>
+    <h2 class="zw-sec-h2">Your Daily Ritual. 20 Minutes.</h2>
+    <div class="zw-steps">
+      <div class="zw-step"><div class="zw-step-n">01</div><h3>Unroll &amp; Plug In</h3><p>Lay the mat flat on any surface. Plug in and power on — ready in seconds.</p></div>
+      <div class="zw-step-arrow">→</div>
+      <div class="zw-step"><div class="zw-step-n">02</div><h3>Select Your Session</h3><p>Choose your zone, intensity, and mode on the remote. Add heat for deeper relief.</p></div>
+      <div class="zw-step-arrow">→</div>
+      <div class="zw-step"><div class="zw-step-n">03</div><h3>Relax &amp; Recover</h3><p>Let the shiatsu nodes do the work. Auto shut-off handles the rest.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REVIEWS ══ -->
+<section class="zw-reviews">
+  <div class="zw-inner">
+    <!-- Photo strip -->
+    <div class="zw-rev-strip">
+      {%- if zp.images.size > 0 -%}
+        {%- for img in zp.images limit:8 -%}
+          <div class="zw-rev-photo"><img src="{{ img | image_url: width:300 }}" alt="Customer photo {{ forloop.index }}" loading="lazy"></div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..5) -%}
+          <div class="zw-rev-photo"><img src="{{ 'mm-1.jpg' | asset_url }}" alt="Customer" loading="lazy"></div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+    <!-- Aggregate -->
+    <div class="zw-rev-agg">
+      <div class="zw-rev-agg-left">
+        <div class="zw-rev-big">4.9</div>
+        <div class="zw-rev-big-stars">★★★★★</div>
+        <p>Based on <strong>2,847</strong> reviews</p>
+        <p class="zw-rev-rec">97% would recommend</p>
+      </div>
+      <div class="zw-rev-bars">
+        <div class="zw-rev-bar-row"><span>5 ★</span><div class="zw-bar-bg"><div class="zw-bar-fill" style="width:93%"></div></div><span>2,647</span></div>
+        <div class="zw-rev-bar-row"><span>4 ★</span><div class="zw-bar-bg"><div class="zw-bar-fill" style="width:5%"></div></div><span>142</span></div>
+        <div class="zw-rev-bar-row"><span>3 ★</span><div class="zw-bar-bg"><div class="zw-bar-fill" style="width:1%"></div></div><span>28</span></div>
+        <div class="zw-rev-bar-row"><span>2 ★</span><div class="zw-bar-bg"><div class="zw-bar-fill" style="width:0.5%"></div></div><span>14</span></div>
+        <div class="zw-rev-bar-row"><span>1 ★</span><div class="zw-bar-bg"><div class="zw-bar-fill" style="width:0.5%"></div></div><span>16</span></div>
+      </div>
+    </div>
+    <hr class="zw-rev-divider">
+    <!-- Review cards -->
+    <div class="zw-rev-list">
+      <div class="zw-rev-item">
+        <div class="zw-rev-header"><div class="zw-rev-av" style="background:linear-gradient(135deg,#5b21b6,#7c3aed)">A</div><div class="zw-rev-meta"><div class="zw-rev-name-row"><strong>Amanda R.</strong><span class="zw-verified">✓ Verified Buyer</span></div><div class="zw-rev-sub">Austin, TX · 3 weeks ago</div></div><div class="zw-item-stars">★★★★★</div></div>
+        <div class="zw-rev-body"><p class="zw-rev-reviewing">Reviewing: ZenWave Full-Body Massage Mat</p><p class="zw-rev-title">I've had back pain for 6 years. This is the first thing that actually works.</p><p class="zw-rev-text">I've spent hundreds on chiropractors, foam rollers, and massagers. Nothing touched my lower back the way this does. The shiatsu nodes go deep and the heat just melts the tension. I use it every night before bed and I actually wake up without pain for the first time in years.</p><p class="zw-rev-rec">❤ I recommend this product</p><div class="zw-rev-meta-fields"><span>Body area: Lower back</span><span>Session frequency: Daily</span></div></div>
+      </div>
+      <div class="zw-rev-item">
+        <div class="zw-rev-header"><div class="zw-rev-av" style="background:linear-gradient(135deg,#065f46,#059669)">D</div><div class="zw-rev-meta"><div class="zw-rev-name-row"><strong>David K.</strong><span class="zw-verified">✓ Verified Buyer</span></div><div class="zw-rev-sub">Denver, CO · 1 month ago</div></div><div class="zw-item-stars">★★★★★</div></div>
+        <div class="zw-rev-body"><p class="zw-rev-reviewing">Reviewing: ZenWave Full-Body Massage Mat</p><p class="zw-rev-title">Replaced my weekly $90 massage appointments</p><p class="zw-rev-text">Was spending $360/month on massage therapy. This mat cost less than one session and gives me better results because I can use it every day. The full-body coverage is what sold me — my neck and lower back were always tight and now I can do both in one session.</p><p class="zw-rev-rec">❤ I recommend this product</p><div class="zw-rev-meta-fields"><span>Body area: Neck + back</span><span>Session frequency: 5x/week</span></div></div>
+      </div>
+      <div class="zw-rev-item">
+        <div class="zw-rev-header"><div class="zw-rev-av" style="background:linear-gradient(135deg,#92400e,#d97706)">P</div><div class="zw-rev-meta"><div class="zw-rev-name-row"><strong>Priya M.</strong><span class="zw-verified">✓ Verified Buyer</span></div><div class="zw-rev-sub">Seattle, WA · 2 weeks ago</div></div><div class="zw-item-stars">★★★★★</div></div>
+        <div class="zw-rev-body"><p class="zw-rev-reviewing">Reviewing: ZenWave Full-Body Massage Mat</p><p class="zw-rev-title">Perfect for athletes. Recovery time cut in half.</p><p class="zw-rev-text">I run marathons and the post-run recovery was always brutal. 20 minutes on this mat after a long run and my legs, back, and shoulders feel completely different. The shiatsu setting on high is intense in the best way possible. My training partner bought one after seeing mine.</p><p class="zw-rev-rec">❤ I recommend this product</p><div class="zw-rev-meta-fields"><span>Body area: Full body</span><span>Session frequency: After every workout</span></div></div>
+      </div>
+      <div class="zw-rev-item">
+        <div class="zw-rev-header"><div class="zw-rev-av" style="background:linear-gradient(135deg,#1e3a5f,#2563eb)">M</div><div class="zw-rev-meta"><div class="zw-rev-name-row"><strong>Michael T.</strong><span class="zw-verified">✓ Verified Buyer</span></div><div class="zw-rev-sub">Chicago, IL · 3 weeks ago</div></div><div class="zw-item-stars">★★★★★</div></div>
+        <div class="zw-rev-body"><p class="zw-rev-reviewing">Reviewing: ZenWave Full-Body Massage Mat</p><p class="zw-rev-title">Desk worker with chronic neck pain — this changed my life</p><p class="zw-rev-text">8 hours a day at a desk destroyed my cervical vertebra and shoulders. I was skeptical but after the first week of daily use I noticed a massive difference in stiffness and headaches. The cervical zone on this mat is specifically great — it gets the tension out of your neck without being rough.</p><p class="zw-rev-rec">❤ I recommend this product</p><div class="zw-rev-meta-fields"><span>Body area: Neck + shoulders</span><span>Session frequency: Daily</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="zw-faq">
+  <div class="zw-faq-wrap">
+    <div class="zw-faq-left">
+      <p class="zw-eyebrow">GOT QUESTIONS?</p>
+      <h2 class="zw-sec-h2">Frequently Asked<br>Questions</h2>
+    </div>
+    <div class="zw-faq-right">
+      <details class="zw-faq-item"><summary>Is it safe for people with back injuries? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg></summary><p>The intensity levels are adjustable — use the lowest setting if you have a sensitive area. Always consult your doctor before using if you have a specific injury. The auto shut-off timer prevents overuse.</p></details>
+      <details class="zw-faq-item"><summary>How long should each session be? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg></summary><p>15–20 minute sessions are recommended for daily use. The mat has an auto shut-off timer you can set. For first-time users, start with 10–15 minutes at a lower intensity.</p></details>
+      <details class="zw-faq-item"><summary>Can I use the heat and shiatsu at the same time? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg></summary><p>Yes — combining heat and shiatsu kneading gives the deepest relief. The heat relaxes muscle tissue and the shiatsu nodes work more effectively as a result.</p></details>
+      <details class="zw-faq-item"><summary>Is it loud when it runs? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg></summary><p>It produces a gentle hum at low intensity — similar to a white noise machine. At higher settings there's more vibration sound, but most customers find it relaxing rather than disruptive.</p></details>
+      <details class="zw-faq-item"><summary>What if it doesn't work for me? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg></summary><p>30-day full refund. No questions, no hassle. If you're not completely satisfied, contact us and we'll issue a full refund immediately — and we cover return shipping.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="zw-footer">
+  <div class="zw-footer-inner">
+    <div><p class="zw-footer-brand">{{ shop.name }}</p><p class="zw-footer-tag">Your body deserves better recovery.</p></div>
+    <div class="zw-footer-col"><strong>Support</strong><a href="/pages/contact">Contact Us</a><a href="/pages/track-order">Track Order</a><a href="/pages/faq">FAQ</a></div>
+    <div class="zw-footer-col"><strong>Policies</strong><a href="/policies/privacy-policy">Privacy Policy</a><a href="/policies/refund-policy">Refund Policy</a><a href="/policies/terms-of-service">Terms of Service</a></div>
+  </div>
+  <div class="zw-footer-bottom"><p>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p><div class="zw-footer-badges"><span>🔒 SSL Secured</span><span>✅ Verified Store</span><span>🛡️ Buyer Protected</span></div></div>
+</footer>
+
+<!-- ══ STICKY BAR ══ -->
+<div class="zw-sticky" id="zw-sticky">
+  <div class="zw-sticky-left">
+    <strong>{{ zp.title | truncate: 36 }}</strong>
+    <span id="zw-sticky-price">{{ zfv.price | money }}</span>
+  </div>
+  <button class="zw-sticky-btn" id="zw-sticky-btn">Add to Cart</button>
+</div>
+
+<script>
+(function(){
+  var variants = JSON.parse(document.getElementById('zw-variant-data').textContent);
+  var v = variants[0];
+  var mainImg = document.getElementById('zw-main-img');
+  var cta = document.getElementById('zw-cta');
+  var stickyBtn = document.getElementById('zw-sticky-btn');
+  var sticky = document.getElementById('zw-sticky');
+  function fmt(c){ return '$'+(c/100).toFixed(2); }
+
+  document.querySelectorAll('.zw-thumb').forEach(function(t){
+    t.addEventListener('click',function(){
+      if(mainImg) mainImg.src=t.dataset.src;
+      document.querySelectorAll('.zw-thumb').forEach(function(x){x.classList.remove('active');});
+      t.classList.add('active');
+    });
+  });
+
+  async function addToCart(){
+    if(!v){alert('Product not found.');return;}
+    var orig=cta?cta.innerHTML:'';
+    if(cta){cta.disabled=true;cta.textContent='Adding…';}
+    if(stickyBtn){stickyBtn.disabled=true;stickyBtn.textContent='Adding…';}
+    try{
+      var res=await fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({items:[{id:v.id,quantity:1}]})});
+      if(!res.ok){var e=await res.json().catch(function(){return{};});throw new Error(e.description||'Error');}
+      var cart=await fetch('/cart.js').then(function(r){return r.json();});
+      var badge=document.querySelector('.zw-cart-badge');
+      if(badge)badge.textContent=cart.item_count;
+      if(cta){cta.disabled=false;cta.innerHTML='✓ Added to Cart!';setTimeout(function(){cta.innerHTML=orig;},2000);}
+      if(stickyBtn){stickyBtn.disabled=false;stickyBtn.textContent='✓ Added!';setTimeout(function(){stickyBtn.textContent='Add to Cart';},2000);}
+      document.querySelector('.zw-open-cart')&&document.querySelector('.zw-open-cart').click();
+    }catch(err){
+      alert('Could not add: '+err.message);
+      if(cta){cta.disabled=false;cta.innerHTML=orig;}
+      if(stickyBtn){stickyBtn.disabled=false;stickyBtn.textContent='Add to Cart';}
+    }
+  }
+  if(cta)cta.addEventListener('click',addToCart);
+  if(stickyBtn)stickyBtn.addEventListener('click',addToCart);
+
+  var hero=document.querySelector('.zw-info');
+  if(hero&&sticky){
+    new IntersectionObserver(function(e){sticky.style.transform=e[0].isIntersecting?'translateY(100%)':'translateY(0)';},{threshold:0.05}).observe(hero);
+  }
+})();
+</script>
+
+<style>
+/* ══ Fonts ══ */
+.zw-title,.zw-vs-headline,.zw-sec-h2,.zw-footer-brand{font-family:'Playfair Display',Georgia,serif;}
+/* ══ Hero ══ */
+.zw-hero{background:#fff;padding:48px 24px 64px;}
+.zw-hero-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start;}
+@media(max-width:860px){.zw-hero-wrap{grid-template-columns:1fr;gap:40px;}}
+/* Gallery */
+.zw-gallery{position:sticky;top:20px;align-self:flex-start;}
+.zw-gallery-main{position:relative;border-radius:20px;overflow:hidden;background:#f8f5ff;margin-bottom:12px;box-shadow:0 4px 28px rgba(0,0,0,0.08);}
+.zw-gallery-main img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
+.zw-badge{position:absolute;top:16px;left:16px;background:#7c3aed;color:#fff;font-size:0.68rem;font-weight:800;padding:6px 16px;border-radius:99px;letter-spacing:0.06em;}
+.zw-thumbs{display:flex;gap:8px;flex-wrap:wrap;}
+.zw-thumb{width:76px;height:76px;border-radius:12px;overflow:hidden;border:2.5px solid transparent;background:#f8f5ff;cursor:pointer;padding:0;transition:border-color 0.15s,box-shadow 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.zw-thumb img{width:100%;height:100%;object-fit:cover;}
+.zw-thumb.active,.zw-thumb:hover{border-color:#7c3aed;box-shadow:0 2px 12px rgba(124,58,237,0.25);}
+/* Info */
+.zw-info{display:flex;flex-direction:column;gap:0;}
+.zw-rating-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;font-size:0.82rem;}
+.zw-stars{color:#f5a623;font-size:1rem;letter-spacing:2px;}
+.zw-rating-num{font-weight:800;color:#111;}
+.zw-sep{color:#ccc;}
+.zw-title{font-size:clamp(1.6rem,3.5vw,2.1rem);font-weight:900;color:#111;line-height:1.15;margin:0 0 12px;letter-spacing:-0.02em;}
+.zw-subtitle{font-size:0.97rem;color:#555;line-height:1.65;margin-bottom:20px;}
+.zw-price-block{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px;}
+.zw-price{font-size:2rem;font-weight:900;color:#111;}
+.zw-was{font-size:1.1rem;color:#bbb;text-decoration:line-through;}
+.zw-save-pill{background:#7c3aed;color:#fff;font-size:0.68rem;font-weight:800;padding:4px 12px;border-radius:99px;letter-spacing:0.05em;}
+.zw-pay-line{font-size:0.8rem;color:#888;margin-bottom:22px;}
+.zw-bullets{list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:10px;}
+.zw-bullets li{display:flex;align-items:flex-start;gap:10px;font-size:0.9rem;color:#333;line-height:1.45;}
+.zw-bullets svg{flex-shrink:0;margin-top:1px;}
+.zw-cta{width:100%;padding:18px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border:none;border-radius:14px;font-size:1.05rem;font-weight:800;cursor:pointer;letter-spacing:0.01em;box-shadow:0 6px 20px rgba(124,58,237,0.35);transition:transform 0.15s,box-shadow 0.15s;margin-bottom:16px;}
+.zw-cta:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 28px rgba(124,58,237,0.45);}
+.zw-cta:disabled{opacity:0.65;cursor:not-allowed;}
+.zw-stock-wrap{margin-bottom:20px;}
+.zw-stock-bar{height:6px;background:#f0f0f0;border-radius:99px;overflow:hidden;margin-bottom:6px;}
+.zw-stock-fill{height:100%;background:linear-gradient(90deg,#7c3aed,#a78bfa);border-radius:99px;}
+.zw-stock-text{font-size:0.78rem;color:#7c3aed;font-weight:700;}
+.zw-guarantee{display:flex;align-items:flex-start;gap:14px;background:#f5f0ff;border:1px solid #ddd6fe;border-radius:14px;padding:16px 18px;margin-bottom:20px;}
+.zw-guarantee svg{color:#7c3aed;flex-shrink:0;margin-top:2px;}
+.zw-guarantee strong{display:block;font-size:0.9rem;color:#111;margin-bottom:3px;}
+.zw-guarantee span{font-size:0.8rem;color:#888;}
+.zw-trust{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid #f0f0f0;}
+.zw-trust-item{display:flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:600;color:#444;}
+.zw-trust-item svg{color:#7c3aed;}
+.zw-accordions{display:flex;flex-direction:column;}
+.zw-acc{border-top:1px solid #eee;}.zw-acc:last-child{border-bottom:1px solid #eee;}
+.zw-acc-q{display:flex;align-items:center;justify-content:space-between;padding:15px 0;cursor:pointer;font-size:0.9rem;font-weight:700;color:#111;list-style:none;user-select:none;}
+.zw-acc-q::-webkit-details-marker{display:none;}
+.zw-acc[open] .zw-acc-q svg{transform:rotate(180deg);}
+.zw-acc-q svg{transition:transform 0.2s;flex-shrink:0;color:#888;}
+.zw-acc-a{font-size:0.86rem;color:#666;line-height:1.7;padding:0 0 16px;}
+/* Videos */
+.zw-vid-section{padding:72px 24px;background:#fff;}
+.zw-vid-featured{border-radius:24px;overflow:hidden;background:#000;box-shadow:0 8px 40px rgba(0,0,0,0.12);margin-bottom:28px;}
+.zw-vid-featured video{display:block;width:100%;height:auto;max-height:72vh;object-fit:contain;}
+.zw-vid-featured iframe{display:block;width:100%;aspect-ratio:16/9;border:none;}
+.zw-vid-row{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin;scrollbar-color:#7c3aed #f0f0f0;}
+.zw-vid-card{flex:0 0 200px;cursor:pointer;}
+.zw-vid-thumb{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:9/16;background:#000;}
+.zw-vid-thumb img{width:100%;height:100%;object-fit:cover;transition:opacity 0.2s;}
+.zw-vid-card:hover .zw-vid-thumb img{opacity:0.85;}
+.zw-vid-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.zw-vid-label{font-size:0.78rem;color:#888;margin-top:8px;font-weight:600;text-align:center;}
+.zw-vid-lb{position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.88);display:none;align-items:center;justify-content:center;padding:24px;}
+.zw-vid-lb[aria-hidden="false"]{display:flex;}
+.zw-vid-lb-body{width:100%;max-width:700px;}
+.zw-vid-lb-body video{width:100%;border-radius:16px;max-height:80vh;object-fit:contain;display:block;}
+.zw-vid-lb-close{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.4rem;width:44px;height:44px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+/* Ticker */
+.zw-ticker{background:#1a1a2e;color:rgba(255,255,255,0.75);padding:14px 0;overflow:hidden;white-space:nowrap;border-top:1px solid #2a2a3e;}
+.zw-ticker-track{display:inline-flex;gap:32px;align-items:center;animation:zw-tick 38s linear infinite;font-size:0.82rem;}
+.zw-tsep{color:#7c3aed;font-size:0.7rem;}
+@keyframes zw-tick{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+/* VS */
+.zw-vs{padding:80px 24px;background:#faf8ff;}
+.zw-vs-headline{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;color:#111;line-height:1.2;margin-bottom:48px;}
+.zw-vs-headline em{color:#7c3aed;font-style:normal;}
+.zw-vs-points{display:flex;flex-direction:column;gap:28px;margin-bottom:56px;}
+.zw-vs-point{display:flex;align-items:flex-start;gap:20px;}
+.zw-vs-num{width:40px;height:40px;border-radius:50%;background:#7c3aed;color:#fff;font-size:1rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.zw-vs-point strong{display:block;font-size:1rem;color:#111;margin-bottom:4px;}
+.zw-vs-point span{font-size:0.9rem;color:#777;}
+.zw-table-wrap{overflow-x:auto;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.06);}
+.zw-table{width:100%;border-collapse:collapse;background:#fff;font-size:0.9rem;}
+.zw-table th,.zw-table td{padding:14px 20px;text-align:left;border-bottom:1px solid #f0f0f0;}
+.zw-th-feat{font-weight:600;color:#888;background:#faf8ff;}
+.zw-th-us{background:#f5f0ff;color:#7c3aed;font-weight:800;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;}
+.zw-th-them{background:#f8f8f8;color:#bbb;font-weight:700;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;}
+.zw-td-us{background:#fdfcff;font-weight:600;color:#111;}
+.zw-td-them{color:#bbb;}
+.zw-table tbody tr:last-child td{border-bottom:none;}
+/* Features */
+.zw-features{padding:80px 24px;background:#fff;}
+.zw-sec-h2{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:900;color:#111;line-height:1.15;margin-bottom:48px;letter-spacing:-0.03em;}
+.zw-feat-grid{display:flex;flex-direction:column;gap:64px;}
+.zw-feat-row{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.zw-feat-flip{direction:rtl;}.zw-feat-flip>*{direction:ltr;}
+@media(max-width:700px){.zw-feat-row,.zw-feat-flip{grid-template-columns:1fr;direction:ltr;gap:24px;}}
+.zw-feat-img-wrap{border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);}
+.zw-feat-img{width:100%;display:block;object-fit:cover;}
+.zw-feat-text h3{font-size:1.3rem;font-weight:800;color:#111;margin-bottom:14px;}
+.zw-feat-text p{font-size:0.95rem;color:#666;line-height:1.7;}
+/* How */
+.zw-how{padding:80px 24px;background:#f8f5ff;}
+.zw-steps{display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap;}
+.zw-step{flex:1;min-width:200px;text-align:center;background:#fff;border-radius:20px;padding:36px 28px;border:1px solid #ede9fe;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+.zw-step-n{font-size:3rem;font-weight:900;color:#ddd6fe;line-height:1;margin-bottom:16px;font-family:'Playfair Display',serif;}
+.zw-step h3{font-size:1.05rem;font-weight:800;color:#111;margin-bottom:10px;}
+.zw-step p{font-size:0.88rem;color:#777;line-height:1.65;}
+.zw-step-arrow{font-size:1.5rem;color:#7c3aed;align-self:center;flex-shrink:0;}
+@media(max-width:640px){.zw-step-arrow{display:none;}}
+/* Reviews */
+.zw-reviews{padding:80px 0;background:#fff;}
+.zw-reviews .zw-inner{padding:0 24px;}
+.zw-rev-strip{display:flex;gap:10px;overflow-x:auto;padding:0 24px 20px;scrollbar-width:none;margin-bottom:48px;}
+.zw-rev-strip::-webkit-scrollbar{display:none;}
+.zw-rev-photo{flex:0 0 140px;height:140px;border-radius:12px;overflow:hidden;background:#f0f0f0;}
+.zw-rev-photo img{width:100%;height:100%;object-fit:cover;}
+.zw-rev-agg{display:flex;align-items:flex-start;gap:48px;margin-bottom:40px;flex-wrap:wrap;}
+.zw-rev-agg-left{text-align:center;min-width:120px;}
+.zw-rev-big{font-size:4rem;font-weight:900;color:#111;font-family:'Playfair Display',serif;line-height:1;}
+.zw-rev-big-stars{color:#f5a623;font-size:1.4rem;letter-spacing:3px;margin:4px 0 8px;}
+.zw-rev-agg-left p{font-size:0.82rem;color:#888;}
+.zw-rev-rec{font-weight:700!important;color:#111!important;margin-top:6px!important;}
+.zw-rev-bars{flex:1;min-width:200px;display:flex;flex-direction:column;gap:8px;}
+.zw-rev-bar-row{display:flex;align-items:center;gap:10px;font-size:0.82rem;color:#888;}
+.zw-rev-bar-row>span:first-child{min-width:28px;text-align:right;font-weight:600;color:#555;}
+.zw-rev-bar-row>span:last-child{min-width:32px;color:#aaa;}
+.zw-bar-bg{flex:1;height:8px;background:#f0f0f0;border-radius:99px;overflow:hidden;}
+.zw-bar-fill{height:100%;background:#7c3aed;border-radius:99px;}
+.zw-rev-divider{border:none;border-top:1px solid #eee;margin-bottom:32px;}
+.zw-rev-list{display:flex;flex-direction:column;}
+.zw-rev-item{padding:28px 0;border-bottom:1px solid #f0f0f0;}
+.zw-rev-item:first-child{border-top:1px solid #f0f0f0;}
+.zw-rev-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px;}
+.zw-rev-av{width:44px;height:44px;border-radius:50%;color:#fff;font-weight:900;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.zw-rev-meta{flex:1;}
+.zw-rev-name-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.zw-rev-name-row strong{font-size:0.93rem;color:#111;}
+.zw-verified{font-size:0.72rem;color:#5b21b6;font-weight:700;background:#f0e6ff;padding:2px 8px;border-radius:99px;}
+.zw-rev-sub{font-size:0.78rem;color:#bbb;margin-top:2px;}
+.zw-item-stars{color:#f5a623;font-size:0.95rem;letter-spacing:1px;flex-shrink:0;}
+.zw-rev-body{padding-left:58px;}
+.zw-rev-reviewing{font-size:0.75rem;color:#bbb;margin-bottom:6px;}
+.zw-rev-title{font-size:0.95rem;font-weight:800;color:#111;margin-bottom:8px;}
+.zw-rev-text{font-size:0.9rem;color:#555;line-height:1.7;margin-bottom:12px;}
+.zw-rev-rec{font-size:0.8rem;font-weight:700;color:#5b21b6;margin-bottom:10px;}
+.zw-rev-meta-fields{display:flex;gap:20px;flex-wrap:wrap;}
+.zw-rev-meta-fields span{font-size:0.75rem;color:#aaa;font-weight:600;}
+@media(max-width:600px){.zw-rev-body{padding-left:0;}}
+/* FAQ */
+.zw-faq{padding:80px 24px;background:#f8f5ff;}
+.zw-faq-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:start;}
+@media(max-width:700px){.zw-faq-wrap{grid-template-columns:1fr;gap:32px;}}
+.zw-faq-item{border-bottom:1px solid #e0e0e0;}
+.zw-faq-item summary{display:flex;align-items:center;justify-content:space-between;padding:18px 0;cursor:pointer;font-size:0.93rem;font-weight:700;color:#111;list-style:none;user-select:none;gap:12px;}
+.zw-faq-item summary::-webkit-details-marker{display:none;}
+.zw-faq-item svg{flex-shrink:0;color:#aaa;transition:transform 0.2s;}
+.zw-faq-item[open] svg{transform:rotate(180deg);}
+.zw-faq-item p{font-size:0.88rem;color:#666;line-height:1.7;padding:0 0 18px;}
+/* Footer */
+.zw-footer{background:#1a1a2e;color:rgba(255,255,255,0.65);padding:56px 24px 24px;}
+.zw-footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+@media(max-width:640px){.zw-footer-inner{grid-template-columns:1fr;gap:32px;}}
+.zw-footer-brand{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:8px;}
+.zw-footer-tag{font-size:0.85rem;color:rgba(255,255,255,0.4);}
+.zw-footer-col{display:flex;flex-direction:column;gap:0;}
+.zw-footer-col strong{font-size:0.75rem;font-weight:700;color:#a78bfa;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;}
+.zw-footer-col a{font-size:0.85rem;color:rgba(255,255,255,0.5);padding:4px 0;transition:color 0.15s;}
+.zw-footer-col a:hover{color:#a78bfa;}
+.zw-footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.zw-footer-bottom p{font-size:0.78rem;color:rgba(255,255,255,0.3);}
+.zw-footer-badges{display:flex;gap:16px;font-size:0.75rem;color:rgba(255,255,255,0.4);}
+/* Sticky */
+.zw-sticky{position:fixed;bottom:0;left:0;right:0;z-index:600;background:#fff;border-top:1px solid #e5e5e5;box-shadow:0 -4px 20px rgba(0,0,0,0.1);padding:12px 20px;display:flex;align-items:center;gap:16px;transform:translateY(100%);transition:transform 0.3s ease;}
+.zw-sticky-left{flex:1;}
+.zw-sticky-left strong{display:block;font-size:0.85rem;color:#111;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;}
+.zw-sticky-left span{font-size:1rem;font-weight:900;color:#7c3aed;}
+.zw-sticky-btn{background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:0.9rem;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+@media(min-width:860px){.zw-sticky{display:none;}}
+/* Shared */
+.zw-inner{max-width:1100px;margin:0 auto;}
+.zw-eyebrow{font-size:0.68rem;font-weight:800;letter-spacing:0.14em;color:#7c3aed;text-transform:uppercase;margin-bottom:10px;}
+</style>
+
+{% schema %}{ "name": "ZenWave Product Hero", "settings": [] }{% endschema %}

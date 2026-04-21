@@ -1,0 +1,50 @@
+<!-- ZenWave Header -->
+<div class="zw-announce">
+  <a href="/products/massage-mat" class="zw-announce-link">✨ Free Shipping on All Orders &nbsp;·&nbsp; 30-Day Money-Back Guarantee &nbsp;<strong>Shop Now →</strong></a>
+</div>
+
+<header class="zw-header">
+  <div class="zw-header-inner">
+    <nav class="zw-nav">
+      <a href="/pages/track-order" class="zw-nav-link">Track Order</a>
+      <a href="/pages/contact" class="zw-nav-link">Contact</a>
+    </nav>
+    <a href="/" class="zw-logo-link" aria-label="{{ shop.name }}">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}" class="zw-logo-img" />
+      {%- else -%}
+        <span class="zw-logo-text">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+    <div class="zw-header-right">
+      <a href="/account" class="zw-icon-btn" aria-label="Account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <button class="zw-icon-btn zw-open-cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="zw-cart-badge">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+.zw-announce{background:linear-gradient(135deg,#5b21b6,#7c3aed);color:#fff;font-size:0.78rem;font-weight:600;padding:10px 16px;text-align:center}
+.zw-announce-link{color:#fff;text-decoration:none}
+.zw-announce-link:hover{text-decoration:underline}
+.zw-header{position:sticky;top:0;z-index:800;background:#fff;border-bottom:1px solid #eee;box-shadow:0 1px 8px rgba(0,0,0,0.06)}
+.zw-header-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:70px}
+.zw-nav{display:flex;gap:24px;align-items:center}
+.zw-nav-link{font-size:0.78rem;font-weight:600;letter-spacing:0.04em;color:#555;text-transform:uppercase;transition:color 0.15s}
+.zw-nav-link:hover{color:#7c3aed}
+.zw-logo-link{display:flex;justify-content:center;align-items:center}
+.zw-logo-img{height:40px;width:auto;object-fit:contain}
+.zw-logo-text{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;font-weight:900;color:#111;letter-spacing:-0.02em}
+.zw-header-right{display:flex;justify-content:flex-end;gap:8px;align-items:center}
+.zw-icon-btn{background:none;border:none;cursor:pointer;padding:8px;color:#333;position:relative;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:background 0.15s}
+.zw-icon-btn:hover{background:#f5f0ff}
+.zw-cart-badge{position:absolute;top:2px;right:2px;background:#7c3aed;color:#fff;font-size:0.6rem;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1}
+@media(max-width:640px){.zw-nav{display:none}}
+</style>
+
+{% schema %}{ "name": "ZenWave Header", "settings": [] }{% endschema %}

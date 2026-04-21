@@ -1,0 +1,141 @@
+{%- assign hp = all_products[section.settings.product_handle] -%}
+
+<!-- Hero Banner -->
+<section class="zwh-hero">
+  <div class="zwh-hero-inner">
+    <p class="zwh-eyebrow">THE FUTURE OF RECOVERY</p>
+    <h1 class="zwh-hero-title">Your Personal<br><em>Massage Therapist.</em><br>At Home.</h1>
+    <p class="zwh-hero-sub">Professional shiatsu relief for your neck, back, shoulders & legs — in one 20-minute session. Loved by 30,000+ customers.</p>
+    <div class="zwh-hero-btns">
+      <a href="/products/{{ section.settings.product_handle | default: 'massage-mat' }}" class="zwh-btn-primary">Shop Now — $59.99</a>
+      <a href="#zwh-features" class="zwh-btn-ghost">See How It Works ↓</a>
+    </div>
+    <div class="zwh-hero-trust">
+      <span>★★★★★ 4.9/5 · 2,847 reviews</span>
+      <span>·</span>
+      <span>🚚 Free Shipping</span>
+      <span>·</span>
+      <span>🛡️ 30-Day Guarantee</span>
+    </div>
+  </div>
+  <div class="zwh-hero-img">
+    {%- if hp != blank and hp.featured_image -%}
+      <img src="{{ hp.featured_image | image_url: width: 900 }}" alt="{{ hp.title }}" />
+    {%- else -%}
+      <img src="{{ 'mm-1.jpg' | asset_url }}" alt="ZenWave Massage Mat" />
+    {%- endif -%}
+    <div class="zwh-hero-badge">⭐ #1 Rated<br>Massage Mat</div>
+  </div>
+</section>
+
+<!-- Trust Bar -->
+<div class="zwh-trust-bar">
+  <div class="zwh-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><div><strong>Free US Shipping</strong><span>On all orders</span></div></div>
+  <div class="zwh-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><strong>30-Day Returns</strong><span>Zero risk, full refund</span></div></div>
+  <div class="zwh-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div><strong>Ships in 24 Hours</strong><span>Arrives in 3–7 days</span></div></div>
+  <div class="zwh-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><div><strong>Secure Checkout</strong><span>256-bit SSL encryption</span></div></div>
+</div>
+
+<!-- Features -->
+<section class="zwh-features" id="zwh-features">
+  <div class="zwh-inner">
+    <p class="zwh-eyebrow">WHY ZENWAVE</p>
+    <h2 class="zwh-sec-h2">Stop Treating One Spot.<br>Treat Everything.</h2>
+    <div class="zwh-feat-grid">
+      <div class="zwh-feat-card"><div class="zwh-feat-icon">📏</div><h3>Full 69" Coverage</h3><p>Long enough to cover your entire body from neck to feet — unlike handheld massagers that only hit one spot.</p></div>
+      <div class="zwh-feat-card"><div class="zwh-feat-icon">💆</div><h3>Shiatsu + Vibration + Heat</h3><p>Three therapies in one session. Heat loosens muscles. Shiatsu kneads deep. Vibration stimulates circulation.</p></div>
+      <div class="zwh-feat-card"><div class="zwh-feat-icon">🎛️</div><h3>Remote-Controlled</h3><p>Adjust zones, intensity, and modes without moving. Just point and tap while you relax.</p></div>
+      <div class="zwh-feat-card"><div class="zwh-feat-icon">⏱️</div><h3>Auto Shut-Off Timer</h3><p>Set your session time and fall asleep without worry. The mat turns itself off automatically.</p></div>
+      <div class="zwh-feat-card"><div class="zwh-feat-icon">🎒</div><h3>Foldable &amp; Portable</h3><p>Rolls up into the included bag in seconds. Take it to your bedroom, office, or on trips.</p></div>
+      <div class="zwh-feat-card"><div class="zwh-feat-icon">💰</div><h3>Save $80–$120/Session</h3><p>One ZenWave costs less than a single massage therapy appointment. Use it every day forever.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="zwh-testimonials">
+  <div class="zwh-inner">
+    <p class="zwh-eyebrow">REAL CUSTOMERS</p>
+    <h2 class="zwh-sec-h2">People Are Cancelling Their Massage Subscriptions.</h2>
+    <div class="zwh-test-grid">
+      <div class="zwh-test-card"><div class="zwh-test-stars">★★★★★</div><p>"I had chronic neck pain from working at a desk for 10 years. After 2 weeks of daily sessions my chiropractor asked what I was doing differently. Game changer."</p><div class="zwh-test-author"><div class="zwh-test-av" style="background:linear-gradient(135deg,#5b21b6,#7c3aed)">S</div><div><strong>Sarah M.</strong><span>Software Engineer, NYC</span></div></div></div>
+      <div class="zwh-test-card"><div class="zwh-test-stars">★★★★★</div><p>"Bought it for my lower back after a marathon. Used it every day for a month. Recovery is now half the time. Gifted one to my running coach immediately."</p><div class="zwh-test-author"><div class="zwh-test-av" style="background:linear-gradient(135deg,#065f46,#059669)">R</div><div><strong>Ryan K.</strong><span>Marathon Runner, Boston</span></div></div></div>
+      <div class="zwh-test-card"><div class="zwh-test-stars">★★★★★</div><p>"Was skeptical but the shiatsu nodes are the real deal. It's not a cheap vibrating pad — it genuinely kneads like fingers. My husband stole it after the first week."</p><div class="zwh-test-author"><div class="zwh-test-av" style="background:linear-gradient(135deg,#92400e,#d97706)">L</div><div><strong>Lisa T.</strong><span>Nurse, Chicago</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="zwh-cta-band">
+  <div class="zwh-inner" style="text-align:center">
+    <p class="zwh-eyebrow" style="color:rgba(255,255,255,0.7)">LIMITED TIME OFFER</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:#fff;font-weight:900;margin-bottom:16px">Get ZenWave Today.<br>Free Shipping. 30-Day Guarantee.</h2>
+    <p style="color:rgba(255,255,255,0.7);margin-bottom:32px;font-size:1rem">Join 30,000+ people who replaced their massage appointments with ZenWave.</p>
+    <a href="/products/{{ section.settings.product_handle | default: 'massage-mat' }}" class="zwh-cta-btn">Shop Now — $59.99 →</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="zw-footer">
+  <div class="zw-footer-inner">
+    <div><p class="zw-footer-brand">{{ shop.name }}</p><p class="zw-footer-tag">Your body deserves better recovery.</p></div>
+    <div class="zw-footer-col"><strong>Support</strong><a href="/pages/contact">Contact Us</a><a href="/pages/track-order">Track Order</a><a href="/pages/faq">FAQ</a></div>
+    <div class="zw-footer-col"><strong>Policies</strong><a href="/policies/privacy-policy">Privacy Policy</a><a href="/policies/refund-policy">Refund Policy</a><a href="/policies/terms-of-service">Terms of Service</a></div>
+  </div>
+  <div class="zw-footer-bottom"><p>© {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p><div class="zw-footer-badges"><span>🔒 SSL Secured</span><span>✅ Verified Store</span><span>🛡️ Buyer Protected</span></div></div>
+</footer>
+
+<style>
+.zwh-hero{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:72px 24px;max-width:1200px;margin:0 auto;}
+@media(max-width:860px){.zwh-hero{grid-template-columns:1fr;gap:40px;}}
+.zwh-eyebrow{font-size:0.68rem;font-weight:800;letter-spacing:0.14em;color:#7c3aed;text-transform:uppercase;margin-bottom:12px;}
+.zwh-hero-title{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.4rem,5vw,3.6rem);font-weight:900;color:#111;line-height:1.1;margin-bottom:20px;}
+.zwh-hero-title em{color:#7c3aed;font-style:normal;}
+.zwh-hero-sub{font-size:1.05rem;color:#555;line-height:1.7;margin-bottom:32px;max-width:500px;}
+.zwh-hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;}
+.zwh-btn-primary{padding:16px 32px;background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;font-weight:800;font-size:1rem;border-radius:12px;box-shadow:0 6px 20px rgba(124,58,237,0.35);transition:transform 0.15s;}
+.zwh-btn-primary:hover{transform:translateY(-2px);}
+.zwh-btn-ghost{padding:16px 28px;border:2px solid #7c3aed;color:#7c3aed;font-weight:700;font-size:0.95rem;border-radius:12px;transition:background 0.15s;}
+.zwh-btn-ghost:hover{background:#f5f0ff;}
+.zwh-hero-trust{font-size:0.82rem;color:#888;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.zwh-hero-img{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.12);}
+.zwh-hero-img img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
+.zwh-hero-badge{position:absolute;bottom:20px;right:20px;background:#fff;color:#111;font-size:0.75rem;font-weight:800;padding:10px 16px;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.12);text-align:center;line-height:1.4;}
+.zwh-trust-bar{background:#f8f5ff;border-top:1px solid #ede9fe;border-bottom:1px solid #ede9fe;padding:24px;display:flex;justify-content:center;gap:48px;flex-wrap:wrap;}
+.zwh-trust-item{display:flex;align-items:center;gap:12px;}
+.zwh-trust-item svg{color:#7c3aed;flex-shrink:0;}
+.zwh-trust-item strong{display:block;font-size:0.88rem;color:#111;}
+.zwh-trust-item span{font-size:0.78rem;color:#888;}
+.zwh-features{padding:80px 24px;background:#fff;}
+.zwh-sec-h2{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:900;color:#111;line-height:1.15;margin-bottom:48px;letter-spacing:-0.03em;}
+.zwh-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+@media(max-width:768px){.zwh-feat-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.zwh-feat-grid{grid-template-columns:1fr;}}
+.zwh-feat-card{background:#faf8ff;border:1px solid #ede9fe;border-radius:20px;padding:32px 24px;}
+.zwh-feat-icon{font-size:2rem;margin-bottom:16px;}
+.zwh-feat-card h3{font-size:1rem;font-weight:800;color:#111;margin-bottom:10px;}
+.zwh-feat-card p{font-size:0.88rem;color:#666;line-height:1.65;}
+.zwh-testimonials{padding:80px 24px;background:#f8f5ff;}
+.zwh-test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media(max-width:768px){.zwh-test-grid{grid-template-columns:1fr;}}
+.zwh-test-card{background:#fff;border-radius:20px;padding:28px;border:1px solid #ede9fe;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+.zwh-test-stars{color:#f5a623;font-size:1rem;letter-spacing:2px;margin-bottom:14px;}
+.zwh-test-card p{font-size:0.9rem;color:#444;line-height:1.7;font-style:italic;margin-bottom:20px;}
+.zwh-test-author{display:flex;align-items:center;gap:12px;}
+.zwh-test-av{width:40px;height:40px;border-radius:50%;color:#fff;font-weight:900;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.zwh-test-author strong{display:block;font-size:0.88rem;color:#111;}
+.zwh-test-author span{font-size:0.75rem;color:#aaa;}
+.zwh-cta-band{background:linear-gradient(135deg,#1a1a2e,#4c1d95);padding:80px 24px;}
+.zwh-cta-btn{display:inline-block;padding:18px 48px;background:#fff;color:#4c1d95;font-weight:900;font-size:1.05rem;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.2);transition:transform 0.15s;}
+.zwh-cta-btn:hover{transform:translateY(-2px);}
+.zwh-inner{max-width:1100px;margin:0 auto;}
+</style>
+
+{% schema %}
+{
+  "name": "ZenWave Homepage",
+  "settings": [
+    { "type": "text", "id": "product_handle", "label": "Product handle", "default": "massage-mat" }
+  ]
+}
+{% endschema %}

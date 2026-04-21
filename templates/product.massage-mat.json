@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "header": { "type": "zw-header", "settings": {} },
+    "hero": { "type": "zw-product-hero", "settings": {} }
+  },
+  "order": ["header", "hero"]
+}
