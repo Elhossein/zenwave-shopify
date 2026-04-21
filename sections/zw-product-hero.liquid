@@ -106,7 +106,7 @@
     {%- assign zw_vid_count = zw_vid_count | plus: 1 -%}
   {%- endif -%}
 {%- endfor -%}
-{%- if zw_vid_count > 0 -%}
+{%- if zw_vid_count > 0 or true -%}
 <section class="zw-vid-section">
   <div class="zw-inner">
     <p class="zw-eyebrow">SEE IT IN ACTION</p>
@@ -140,6 +140,14 @@
       {%- endif -%}
     {%- endfor -%}
     {%- if zw_vid_count > 1 -%}</div>{%- endif -%}
+    {%- if zw_vid_count == 0 -%}
+      <!-- Fallback: asset video -->
+      <div class="zw-vid-featured">
+        <video controls muted loop playsinline poster="{{ 'qvc-video-poster.jpg' | asset_url }}">
+          <source src="{{ 'qvc-video-compressed.mp4' | asset_url }}" type="video/mp4">
+        </video>
+      </div>
+    {%- endif -%}
   </div>
   <div class="zw-vid-lb" id="zw-vid-lb" aria-hidden="true">
     <button id="zw-vid-lb-close" class="zw-vid-lb-close">✕</button>
