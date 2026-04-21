@@ -23,9 +23,12 @@
             </button>
           {%- endfor -%}
         {%- else -%}
-          <button class="zw-thumb active" data-src="{{ 'mm-1.jpg' | asset_url }}">
-            <img src="{{ 'mm-1.jpg' | asset_url }}" alt="{{ zp.title }}" loading="lazy" />
-          </button>
+          {%- assign zw_fallback_imgs = 'mm-1.jpg,mm-g1.jpg,mm-g3.jpg,mm-g4.jpg,mm-g5.jpg,mm-g6.jpg,mm-g7.jpg' | split: ',' -%}
+          {%- for zfi in zw_fallback_imgs -%}
+            <button class="zw-thumb{% if forloop.first %} active{% endif %}" data-src="{{ zfi | asset_url }}">
+              <img src="{{ zfi | asset_url }}" alt="{{ zp.title }}" loading="lazy" />
+            </button>
+          {%- endfor -%}
         {%- endif -%}
       </div>
     </div>
@@ -207,19 +210,19 @@
     <h2 class="zw-sec-h2">Every Zone. Every Tension. Covered.</h2>
     <div class="zw-feat-grid">
       <div class="zw-feat-row">
-        <div class="zw-feat-img-wrap"><img src="{{ 'mm-1.jpg' | asset_url }}" alt="Full body coverage" class="zw-feat-img" loading="lazy" /></div>
+        <div class="zw-feat-img-wrap"><img src="{{ 'mm-g3.jpg' | asset_url }}" alt="Full body coverage" class="zw-feat-img" loading="lazy" /></div>
         <div class="zw-feat-text"><h3>🧘 Full-Body Coverage in 20 Minutes</h3><p>At 69 inches long, ZenWave is long enough to cover your entire body — from your cervical vertebra down to your legs — so one session addresses everything at once.</p></div>
       </div>
       <div class="zw-feat-row zw-feat-flip">
-        <div class="zw-feat-img-wrap"><img src="{{ 'mm-1.jpg' | asset_url }}" alt="Shiatsu nodes" class="zw-feat-img" loading="lazy" /></div>
+        <div class="zw-feat-img-wrap"><img src="{{ 'mm-g4.jpg' | asset_url }}" alt="Shiatsu nodes" class="zw-feat-img" loading="lazy" /></div>
         <div class="zw-feat-text"><h3>💆 Professional Shiatsu Nodes</h3><p>The deep-kneading shiatsu nodes replicate real hands-on massage technique — not just surface vibration. Ideal for chronic back pain, knots, and post-workout recovery.</p></div>
       </div>
       <div class="zw-feat-row">
-        <div class="zw-feat-img-wrap"><img src="{{ 'mm-1.jpg' | asset_url }}" alt="Heat therapy" class="zw-feat-img" loading="lazy" /></div>
+        <div class="zw-feat-img-wrap"><img src="{{ 'mm-2.jpg' | asset_url }}" alt="Heat therapy" class="zw-feat-img" loading="lazy" /></div>
         <div class="zw-feat-text"><h3>🔥 Optional Heat Therapy</h3><p>Targeted heat zones increase blood circulation, reduce stiffness, and amplify the massage effect — especially on the neck, lower back, and shoulders.</p></div>
       </div>
       <div class="zw-feat-row zw-feat-flip">
-        <div class="zw-feat-img-wrap"><img src="{{ 'mm-1.jpg' | asset_url }}" alt="Portable" class="zw-feat-img" loading="lazy" /></div>
+        <div class="zw-feat-img-wrap"><img src="{{ 'mm-5.jpg' | asset_url }}" alt="Portable" class="zw-feat-img" loading="lazy" /></div>
         <div class="zw-feat-text"><h3>🎒 Folds Up in Seconds</h3><p>Roll it up, drop it in the included bag, and take it anywhere — living room floor, office, hotel room. It's your personal massage therapist, wherever you go.</p></div>
       </div>
     </div>
@@ -251,8 +254,9 @@
           <div class="zw-rev-photo"><img src="{{ img | image_url: width:300 }}" alt="Customer photo {{ forloop.index }}" loading="lazy"></div>
         {%- endfor -%}
       {%- else -%}
-        {%- for i in (1..5) -%}
-          <div class="zw-rev-photo"><img src="{{ 'mm-1.jpg' | asset_url }}" alt="Customer" loading="lazy"></div>
+        {%- assign zw_strip_imgs = 'mm-g1.jpg,mm-g3.jpg,mm-g4.jpg,mm-3.jpg,mm-4.jpg,mm-6.jpg,mm-g5.jpg,mm-7.jpg' | split: ',' -%}
+        {%- for zsi in zw_strip_imgs -%}
+          <div class="zw-rev-photo"><img src="{{ zsi | asset_url }}" alt="Customer photo {{ forloop.index }}" loading="lazy"></div>
         {%- endfor -%}
       {%- endif -%}
     </div>
